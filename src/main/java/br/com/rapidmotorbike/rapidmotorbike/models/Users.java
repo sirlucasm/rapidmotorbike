@@ -11,12 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 @Table(name = "users")
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -27,6 +30,7 @@ public class Users {
     @Column(name = "cell_phone", nullable = false, unique = true)
     private String cell_phone;
 
+	@JsonProperty(access = Access.WRITE_ONLY)
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -39,30 +43,8 @@ public class Users {
 
     @Column(name = "birth_date", nullable = false)
 	private LocalDate birth_date;
-	
-	public Users(){}
 
-	public Users(
-		Long id,
-		String name,
-		String email,
-		String cell_phone,
-		String password,
-		int user_type,
-		Addresses address,
-		String birth_date
-	) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-		this.cell_phone = cell_phone;
-		this.password = password;
-		this.user_type = user_type;
-		this.address = address;
-		this.birth_date = LocalDate.parse(birth_date);
-    }
-
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 

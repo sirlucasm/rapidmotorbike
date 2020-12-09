@@ -11,8 +11,8 @@ import javax.persistence.Table;
 @Table(name = "addresses")
 public class Addresses {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "street", nullable = false)
     private String street;
@@ -35,27 +35,7 @@ public class Addresses {
     @Column(name = "longitude", nullable = true)
     private String longitude;
 
-    public Addresses(
-		Long id,
-		String street,
-		String postal_code,
-		String home_number,
-		String country,
-		String neighborhood,
-		String latitude,
-		String longitude
-	) {
-        this.id = id;
-        this.street = street;
-        this.postal_code = postal_code;
-		this.home_number = home_number;
-		this.country = country;
-		this.neighborhood = neighborhood;
-		this.latitude = latitude;
-		this.longitude = longitude;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
