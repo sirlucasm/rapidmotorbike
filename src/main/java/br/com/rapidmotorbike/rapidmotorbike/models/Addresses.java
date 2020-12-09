@@ -1,13 +1,14 @@
 package br.com.rapidmotorbike.rapidmotorbike.models;
 
-import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "addresses")
 public class Addresses {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,13 +35,25 @@ public class Addresses {
     @Column(name = "longitude", nullable = true)
     private String longitude;
 
-    @Column(name = "created_at", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Calendar created_at;
-
-    @Column(name = "updated_at", nullable = true)
-    @Temporal(TemporalType.DATE)
-    private Calendar updated_at;
+    public Addresses(
+		Long id,
+		String street,
+		String postal_code,
+		String home_number,
+		String country,
+		String neighborhood,
+		String latitude,
+		String longitude
+	) {
+        this.id = id;
+        this.street = street;
+        this.postal_code = postal_code;
+		this.home_number = home_number;
+		this.country = country;
+		this.neighborhood = neighborhood;
+		this.latitude = latitude;
+		this.longitude = longitude;
+    }
 
     public long getId() {
         return id;
@@ -104,22 +117,6 @@ public class Addresses {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
-    }
-
-    public Calendar getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Calendar created_at) {
-        this.created_at = created_at;
-    }
-
-    public Calendar getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(Calendar updated_at) {
-        this.updated_at = updated_at;
     }
 
 }
