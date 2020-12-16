@@ -28,21 +28,21 @@ public class Users {
     private String email;
 
     @Column(name = "cell_phone", nullable = false, unique = true)
-    private String cell_phone;
+    private String cellPhone;
 
 	@JsonProperty(access = Access.WRITE_ONLY)
     @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "user_type", nullable = false)
-    private int user_type;
+    private int userType;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = true)
     private Addresses address;
 
     @Column(name = "birth_date", nullable = false)
-	private LocalDate birth_date;
+	private LocalDate birthDate;
 
 	public Long getId() {
 		return id;
@@ -68,12 +68,12 @@ public class Users {
 		this.email = email;
 	}
 
-	public String getCell_phone() {
-		return cell_phone;
+	public String getCellPhone() {
+		return cellPhone;
 	}
 
-	public void setCell_phone(String cell_phone) {
-		this.cell_phone = cell_phone;
+	public void setCellPhone(String cell_phone) {
+		this.cellPhone = cell_phone;
 	}
 
 	public String getPassword() {
@@ -84,12 +84,12 @@ public class Users {
 		this.password = password;
 	}
 
-	public int getUser_type() {
-		return user_type;
+	public int getUserType() {
+		return userType;
 	}
 
-	public void setUser_type(int user_type) {
-		this.user_type = user_type;
+	public void setUserType(int user_type) {
+		this.userType = user_type;
 	}
 
 	public Addresses getAddress() {
@@ -100,12 +100,12 @@ public class Users {
 		this.address = address;
 	}
 
-	public LocalDate getBirth_date() {
-		return birth_date;
+	public LocalDate getBirthDate() {
+		return birthDate;
 	}
 
-	public void setBirth_date(String birth_date) {
-		this.birth_date = LocalDate.parse(birth_date);
+	public void setBirthDate(String birth_date) {
+		this.birthDate = LocalDate.parse(birth_date);
 	}
     
 }
