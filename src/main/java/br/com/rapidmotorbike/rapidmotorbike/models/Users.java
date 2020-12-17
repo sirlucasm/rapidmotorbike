@@ -72,8 +72,8 @@ public class Users {
 		return cellPhone;
 	}
 
-	public void setCellPhone(String cell_phone) {
-		this.cellPhone = cell_phone;
+	public void setCellPhone(String cellPhone) {
+		this.cellPhone = cellPhone;
 	}
 
 	public String getPassword() {
@@ -88,8 +88,8 @@ public class Users {
 		return userType;
 	}
 
-	public void setUserType(int user_type) {
-		this.userType = user_type;
+	public void setUserType(int userType) {
+		this.userType = userType;
 	}
 
 	public Addresses getAddress() {
@@ -104,8 +104,8 @@ public class Users {
 		return birthDate;
 	}
 
-	public void setBirthDate(String birth_date) {
-		this.birthDate = LocalDate.parse(birth_date);
+	public void setBirthDate(String birthDate) {
+		this.birthDate = LocalDate.parse(birthDate);
 	}
     
 }

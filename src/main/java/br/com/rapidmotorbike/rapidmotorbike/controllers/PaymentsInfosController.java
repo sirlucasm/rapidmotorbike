@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import br.com.rapidmotorbike.rapidmotorbike.models.PaymentsInfos;
+import br.com.rapidmotorbike.rapidmotorbike.models.Users;
 import br.com.rapidmotorbike.rapidmotorbike.repositories.PaymentsInfosRepository;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -28,44 +29,47 @@ public class PaymentsInfosController {
     }
 
     @RequestMapping(value = "/paymentsInfos/{id}", method = RequestMethod.GET)
-    public ResponseEntity<PaymentsInfos> GetById(@PathVariable(value = "id") long id)
-    {
+    public ResponseEntity<PaymentsInfos> GetById(@PathVariable(value = "id") long id) {
         Optional<PaymentsInfos> paymentsInfos = _paymentsInfosRepository.findById(id);
-        if(paymentsInfos.isPresent())
+        if (paymentsInfos.isPresent())
             return new ResponseEntity<PaymentsInfos>(paymentsInfos.get(), HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/paymentsInfos", method =  RequestMethod.POST)
-    public PaymentsInfos Post(@RequestBody PaymentsInfos paymentsInfos)
-    {
+    @RequestMapping(value = "/paymentsInfos", method = RequestMethod.POST)
+    public PaymentsInfos Post(@RequestBody PaymentsInfos paymentsInfos) {
         return _paymentsInfosRepository.save(paymentsInfos);
     }
 
-    @RequestMapping(value = "/paymentsInfos/{id}", method =  RequestMethod.PUT)
-    public ResponseEntity<PaymentsInfos> Put(@PathVariable(value = "id") long id, @RequestBody PaymentsInfos newPaymentsInfos)
-    {
+    @RequestMapping(value = "/paymentsInfos/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<PaymentsInfos> Put(@PathVariable(value = "id") long id,
+            @RequestBody PaymentsInfos newPaymentsInfos) {
         Optional<PaymentsInfos> oldPaymentsInfos = _paymentsInfosRepository.findById(id);
-        if(oldPaymentsInfos.isPresent()){
+        if (oldPaymentsInfos.isPresent()) {
             PaymentsInfos paymentsInfos = oldPaymentsInfos.get();
             paymentsInfos.setCpf(newPaymentsInfos.getCpf());
             _paymentsInfosRepository.save(paymentsInfos);
             return new ResponseEntity<PaymentsInfos>(paymentsInfos, HttpStatus.OK);
-        }
-        else
+        } else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value = "/paymentsInfos/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> Delete(@PathVariable(value = "id") long id)
-    {
+    public ResponseEntity<Object> Delete(@PathVariable(value = "id") long id) {
         Optional<PaymentsInfos> paymentsInfos = _paymentsInfosRepository.findById(id);
-        if(paymentsInfos.isPresent()){
+        if (paymentsInfos.isPresent()) {
             _paymentsInfosRepository.delete(paymentsInfos.get());
             return new ResponseEntity<>(HttpStatus.OK);
-        }
-        else
+        } else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(value = "/myPaymentsInfos", method = RequestMethod.POST)
+    public Optional<Users> fetchMyPaymentsInfos(@RequestBody PaymentsInfos paymentsInfos) {
+        Optional<Users> paymentInfo = _paymentsInfosRepository.findByUser(paymentsInfos.getUser());
+        if(paymentInfo.isPresent())
+            return paymentInfo;
+        return null;
     }
 }

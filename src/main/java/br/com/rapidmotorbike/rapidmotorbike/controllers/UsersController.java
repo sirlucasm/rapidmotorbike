@@ -69,13 +69,31 @@ public class UsersController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/users/login", method =  RequestMethod.POST)
-    public List<Users> Login(@RequestBody Users users)
+    @RequestMapping(value = "/users/me", method =  RequestMethod.POST)
+    public Optional<Users> fetchLoggedUser(@RequestBody Users users)
     {
-        List<Users> user = _usersRepository.findByCellPhoneAndPassword(users.getCellPhone(), users.getPassword());
-        if (user.size() > 0) {
+        Optional<Users> user = _usersRepository.findById(users.getId());
+        if (user.isPresent()) {
             return user;
         }
+        return null;
+    }
+
+    @RequestMapping(value = "/users/login", method =  RequestMethod.POST)
+    public Optional<Users> Login(@RequestBody Users users)
+    {
+        Optional<Users> user = _usersRepository.findByCellPhoneAndPassword(users.getCellPhone(), users.getPassword());
+        if (user.isPresent()) 
+            return user;
+        return null;
+    }
+
+    @RequestMapping(value = "/users/userType/{userType}", method =  RequestMethod.GET)
+    public List<Users> fetchUserByUserType(@PathVariable(value = "userType") int userType)
+    {
+        List<Users> user = _usersRepository.findByUserType(userType);
+        if (user.size() > 0)
+            return user;
         return null;
     }
 }
